@@ -1,0 +1,34 @@
+<navigation-bar title="{{title}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="community-publish-page">
+  <image class="community-publish-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="community-publish-page__shade"></view>
+
+  <view class="community-publish-page__content">
+    <view class="community-publish-card">
+      <textarea
+        class="community-publish-card__textarea"
+        maxlength="500"
+        placeholder="写下你想分享的内容，最多500字"
+        value="{{textValue}}"
+        bindinput="onTextInput"
+      ></textarea>
+      <text class="community-publish-card__count">{{textValue.length}} / 500</text>
+
+      <view class="community-publish-images">
+        <view wx:for="{{imageList}}" wx:key="*this" class="community-publish-images__item">
+          <image class="community-publish-images__image" src="{{item}}" mode="aspectFill"></image>
+          <view class="community-publish-images__remove" bindtap="removeImage" data-index="{{index}}">×</view>
+        </view>
+        <view wx:if="{{imageList.length < 9}}" class="community-publish-images__add" bindtap="chooseImages">
+          <text>+</text>
+          <text>添加图片</text>
+        </view>
+      </view>
+    </view>
+
+    <button class="community-publish-submit {{canPublish ? 'community-publish-submit--active' : ''}}" disabled="{{!canPublish}}" bindtap="publishPost">
+      发布
+    </button>
+  </view>
+</view>

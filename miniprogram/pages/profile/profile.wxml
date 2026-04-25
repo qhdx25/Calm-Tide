@@ -1,0 +1,88 @@
+<navigation-bar title="{{title}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="profile-page">
+  <view class="profile-page__shade"></view>
+
+  <view class="profile-page__content">
+    <view class="profile-card">
+      <view class="profile-card__avatar">我</view>
+      <text class="profile-card__title">我的</text>
+      <text class="profile-card__desc">这里集中管理你的对话、冥想、社区记录和个人偏好设置。</text>
+    </view>
+
+    <view class="profile-sections">
+      <view wx:for="{{sections}}" wx:key="id" wx:for-item="section" class="profile-section">
+        <view class="profile-section__header" bindtap="toggleSection" data-section-id="{{section.id}}">
+          <view class="profile-section__header-text">
+            <text class="profile-section__title">{{section.title}}</text>
+            <text class="profile-section__subtitle">{{section.subtitle}}</text>
+          </view>
+          <view class="profile-section__arrow {{section.expanded ? 'profile-section__arrow--expanded' : ''}}"></view>
+        </view>
+
+        <view wx:if="{{section.expanded}}" class="profile-section__body">
+          <view
+            wx:for="{{section.items}}"
+            wx:key="title"
+            wx:for-item="record"
+            class="profile-record {{(section.id === 'chat' && record.messageId) || section.id === 'meditation' || (section.id === 'settings' && record.action) ? 'profile-record--clickable' : ''}}"
+            bindtap="openProfileRecord"
+            data-section-id="{{section.id}}"
+            data-message-id="{{record.messageId || ''}}"
+            data-theme-id="{{record.themeId || ''}}"
+            data-action="{{record.action || ''}}"
+          >
+            <view class="profile-record__main">
+              <text class="profile-record__title">{{record.title}}</text>
+              <text wx:if="{{record.meta}}" class="profile-record__meta">{{record.meta}}</text>
+            </view>
+            <text wx:if="{{record.status}}" class="profile-record__status">{{record.status}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showMeditationStats}}" class="stats-mask" bindtap="closeMeditationStats"></view>
+  <view wx:if="{{showMeditationStats}}" class="stats-modal">
+    <view class="stats-modal__header">
+      <text class="stats-modal__title">冥想统计</text>
+      <text class="stats-modal__close" bindtap="closeMeditationStats">关闭</text>
+    </view>
+
+    <view class="stats-summary">
+      <view class="stats-summary__card">
+        <text class="stats-summary__label">总时长</text>
+        <text class="stats-summary__value">{{meditationTotalDurationText}}</text>
+      </view>
+      <view class="stats-summary__card">
+        <text class="stats-summary__label">平均时长</text>
+        <text class="stats-summary__value">{{meditationAverageDurationText}}</text>
+      </view>
+    </view>
+
+    <view class="stats-chart">
+      <text class="stats-chart__title">近 7 天趋势</text>
+      <view class="stats-chart__plot">
+        <view
+          wx:for="{{meditationTrendLines}}"
+          wx:key="index"
+          wx:for-item="line"
+          class="stats-chart__line"
+          style="left: {{line.left}}; bottom: {{line.bottom}}; width: {{line.width}}; transform: {{line.rotate}};"
+        ></view>
+        <view
+          wx:for="{{meditationTrendPoints}}"
+          wx:key="label"
+          wx:for-item="point"
+          class="stats-chart__point-wrap"
+          style="left: {{point.left}}; bottom: {{point.bottom}};"
+        >
+          <text class="stats-chart__point-value">{{point.minutes}}分</text>
+          <view class="stats-chart__point"></view>
+          <text class="stats-chart__label">{{point.label}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

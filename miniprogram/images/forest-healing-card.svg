@@ -1,0 +1,75 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="600" y1="30" x2="600" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F4F5E8"/>
+      <stop offset="0.45" stop-color="#DFF0D9"/>
+      <stop offset="1" stop-color="#B8DDC5"/>
+    </linearGradient>
+    <linearGradient id="hillBack" x1="600" y1="270" x2="600" y2="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A7CDA8"/>
+      <stop offset="1" stop-color="#7DB18A"/>
+    </linearGradient>
+    <linearGradient id="hillMid" x1="600" y1="320" x2="600" y2="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7FB38C"/>
+      <stop offset="1" stop-color="#4F8364"/>
+    </linearGradient>
+    <linearGradient id="hillFront" x1="600" y1="350" x2="600" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4C7E5C"/>
+      <stop offset="1" stop-color="#315A42"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(924 169) rotate(90) scale(192 212)">
+      <stop offset="0" stop-color="#FFF6CE" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FFF6CE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mist" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(620 412) rotate(90) scale(244 532)">
+      <stop offset="0" stop-color="white" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="720" rx="48" fill="url(#sky)"/>
+  <circle cx="924" cy="169" r="212" fill="url(#sunGlow)"/>
+
+  <path d="M0 414C83 367 175 344 278 346C382 348 472 394 565 404C663 414 761 382 844 340C928 298 1032 277 1200 318V720H0V414Z" fill="url(#hillBack)"/>
+  <path d="M0 472C104 430 198 418 302 428C423 440 504 504 613 510C745 518 808 447 920 430C1016 415 1112 429 1200 468V720H0V472Z" fill="url(#hillMid)"/>
+  <path d="M0 564C118 520 214 515 324 534C442 553 552 624 683 625C808 626 904 554 1017 540C1084 531 1143 535 1200 554V720H0V564Z" fill="url(#hillFront)"/>
+
+  <ellipse cx="587" cy="471" rx="532" ry="244" fill="url(#mist)"/>
+
+  <g fill="#6A9B76" opacity="0.82">
+    <path d="M157 468L193 398L229 468H157Z"/>
+    <rect x="185" y="468" width="8" height="38" rx="4"/>
+    <path d="M227 452L269 372L311 452H227Z"/>
+    <rect x="265" y="452" width="8" height="44" rx="4"/>
+    <path d="M318 474L364 387L410 474H318Z"/>
+    <rect x="360" y="474" width="8" height="40" rx="4"/>
+    <path d="M900 462L944 378L988 462H900Z"/>
+    <rect x="940" y="462" width="8" height="46" rx="4"/>
+    <path d="M982 487L1022 410L1062 487H982Z"/>
+    <rect x="1018" y="487" width="8" height="34" rx="4"/>
+  </g>
+
+  <g fill="#406A4D">
+    <path d="M77 633L154 487L231 633H77Z"/>
+    <rect x="150" y="633" width="10" height="56" rx="5"/>
+    <path d="M164 641L258 466L352 641H164Z"/>
+    <rect x="253" y="641" width="12" height="61" rx="6"/>
+    <path d="M301 648L387 487L473 648H301Z"/>
+    <rect x="381" y="648" width="11" height="54" rx="5.5"/>
+    <path d="M790 636L882 463L974 636H790Z"/>
+    <rect x="876" y="636" width="12" height="60" rx="6"/>
+    <path d="M905 651L1012 451L1119 651H905Z"/>
+    <rect x="1006" y="651" width="13" height="64" rx="6.5"/>
+    <path d="M1014 633L1088 494L1162 633H1014Z"/>
+    <rect x="1084" y="633" width="10" height="55" rx="5"/>
+  </g>
+
+  <g opacity="0.5">
+    <ellipse cx="197" cy="174" rx="94" ry="31" fill="white"/>
+    <ellipse cx="304" cy="214" rx="126" ry="36" fill="white"/>
+    <ellipse cx="757" cy="122" rx="144" ry="41" fill="white"/>
+  </g>
+
+  <rect x="54" y="56" width="428" height="166" rx="28" fill="white" fill-opacity="0.14"/>
+  <rect x="54" y="56" width="428" height="166" rx="28" stroke="white" stroke-opacity="0.24"/>
+</svg>

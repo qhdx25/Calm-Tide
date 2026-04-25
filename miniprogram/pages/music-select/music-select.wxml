@@ -1,0 +1,27 @@
+<navigation-bar title="{{title}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="music-select-page">
+  <image class="music-select-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="music-select-page__shade"></view>
+
+  <view class="music-select-page__content">
+    <text class="music-select-page__eyebrow">{{themeText}}</text>
+    <text class="music-select-page__title">选择冥想音乐</text>
+
+    <view class="music-select-list">
+      <view
+        wx:for="{{tracks}}"
+        wx:key="id"
+        class="music-select-item {{selectedTrackId === item.id ? 'music-select-item--active' : ''}}"
+        bindtap="selectTrack"
+        data-track-id="{{item.id}}"
+      >
+        <view>
+          <text class="music-select-item__name">{{item.name}}</text>
+          <text class="music-select-item__subtitle">{{item.subtitle}}</text>
+        </view>
+        <view class="music-select-item__check">{{selectedTrackId === item.id ? '已选' : '选择'}}</view>
+      </view>
+    </view>
+  </view>
+</view>

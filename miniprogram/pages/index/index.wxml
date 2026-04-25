@@ -1,0 +1,79 @@
+<navigation-bar title="Theme Select" back="{{false}}" color="white" background="transparent"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="page">
+    <view class="intro">
+      <text class="intro__eyebrow">START SCREEN</text>
+      <text class="intro__title">Choose Your Theme</text>
+      <text class="intro__desc">Pick one of the four preset healing worlds for the mini program home experience.</text>
+    </view>
+
+    <view class="theme-grid">
+      <view
+        wx:for="{{themes}}"
+        wx:key="id"
+        class="theme-card theme-card--{{item.id}} {{selectedThemeId === item.id ? 'theme-card--active' : ''}}"
+        bindtap="onSelectTheme"
+        data-theme-id="{{item.id}}"
+      >
+        <view class="theme-card__overlay"></view>
+
+        <view wx:if="{{item.id === 'forest'}}" class="scene scene--forest">
+          <view class="forest__sun"></view>
+          <view class="forest__hill forest__hill--back"></view>
+          <view class="forest__hill forest__hill--mid"></view>
+          <view class="forest__hill forest__hill--front"></view>
+          <view class="forest__mist"></view>
+          <view class="forest__tree forest__tree--1"></view>
+          <view class="forest__tree forest__tree--2"></view>
+          <view class="forest__tree forest__tree--3"></view>
+        </view>
+
+        <view wx:elif="{{item.id === 'ocean'}}" class="scene scene--ocean">
+          <view class="ocean__moon"></view>
+          <view class="ocean__wave ocean__wave--1"></view>
+          <view class="ocean__wave ocean__wave--2"></view>
+          <view class="ocean__wave ocean__wave--3"></view>
+          <view class="ocean__foam ocean__foam--1"></view>
+          <view class="ocean__foam ocean__foam--2"></view>
+          <view class="ocean__island"></view>
+        </view>
+
+        <view wx:elif="{{item.id === 'universe'}}" class="scene scene--universe">
+          <view class="universe__planet"></view>
+          <view class="universe__ring"></view>
+          <view class="universe__glow"></view>
+          <view class="universe__star universe__star--1"></view>
+          <view class="universe__star universe__star--2"></view>
+          <view class="universe__star universe__star--3"></view>
+          <view class="universe__star universe__star--4"></view>
+          <view class="universe__dust"></view>
+        </view>
+
+        <view wx:else class="scene scene--temple">
+          <view class="temple__sun"></view>
+          <view class="temple__mountain temple__mountain--back"></view>
+          <view class="temple__mountain temple__mountain--front"></view>
+          <view class="temple__base"></view>
+          <view class="temple__roof temple__roof--top"></view>
+          <view class="temple__roof temple__roof--mid"></view>
+          <view class="temple__hall"></view>
+          <view class="temple__path"></view>
+        </view>
+
+        <view class="theme-card__content">
+          <text class="theme-card__eyebrow">{{item.eyebrow}}</text>
+          <text class="theme-card__title">{{item.title}}</text>
+          <text class="theme-card__desc">{{item.desc}}</text>
+        </view>
+
+        <view wx:if="{{selectedThemeId === item.id}}" class="theme-card__badge">Selected</view>
+      </view>
+    </view>
+
+    <view class="selection-panel">
+      <text class="selection-panel__label">Current Theme</text>
+      <text class="selection-panel__value">{{selectedThemeTitle}}</text>
+      <text class="selection-panel__hint">Preset cards are fixed in a 2 by 2 layout on the start screen.</text>
+    </view>
+  </view>
+</scroll-view>

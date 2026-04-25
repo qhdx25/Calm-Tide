@@ -1,0 +1,274 @@
+<navigation-bar title="{{navTitle}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view wx:if="{{isMeditation}}" class="meditation-page">
+  <image class="meditation-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="meditation-page__shade"></view>
+
+  <view class="meditation-page__content">
+    <view>
+      <text class="meditation-page__eyebrow">{{themeText}}</text>
+      <text class="meditation-page__title">{{featureTitle}}</text>
+      <text class="meditation-page__subtitle">{{featureSubtitle}}</text>
+      <view class="meditation-track-entry" bindtap="openMusicSelect">
+        <text class="meditation-track-entry__label">背景音乐</text>
+        <text class="meditation-track-entry__value">{{selectedTrackName}}</text>
+      </view>
+    </view>
+
+    <view class="meditation-status">
+      <text class="meditation-status__time">{{remainingTimeText}}</text>
+      <text class="meditation-status__meta">{{selectedDurationLabel}} · {{isPlaying ? '播放中' : '已暂停'}}</text>
+    </view>
+  </view>
+
+  <view class="meditation-toolbar">
+    <button class="meditation-toolbar__button meditation-toolbar__button--primary" bindtap="toggleMeditationPlayback">
+      <view class="meditation-toolbar__icon-wrap">
+        <view wx:if="{{isPlaying}}" class="meditation-toolbar__icon meditation-toolbar__icon--pause">
+          <view class="meditation-toolbar__pause-bar"></view>
+          <view class="meditation-toolbar__pause-bar"></view>
+        </view>
+        <view wx:else class="meditation-toolbar__icon meditation-toolbar__icon--play"></view>
+      </view>
+      <view class="meditation-toolbar__label-group">
+        <text class="meditation-toolbar__title">{{isPlaying ? '暂停播放' : '继续播放'}}</text>
+        <text class="meditation-toolbar__desc">{{isPlaying ? '白噪音与计时同步进行' : '恢复白噪音与倒计时'}}</text>
+      </view>
+    </button>
+
+    <button class="meditation-toolbar__button meditation-toolbar__button--secondary" bindtap="openDurationSheet">
+      <view class="meditation-toolbar__icon-wrap meditation-toolbar__icon-wrap--secondary">
+        <view class="meditation-toolbar__icon meditation-toolbar__icon--clock">
+          <view class="meditation-toolbar__clock-hand meditation-toolbar__clock-hand--hour"></view>
+          <view class="meditation-toolbar__clock-hand meditation-toolbar__clock-hand--minute"></view>
+        </view>
+      </view>
+      <view class="meditation-toolbar__label-group">
+        <text class="meditation-toolbar__title meditation-toolbar__title--light">冥想时长</text>
+        <text class="meditation-toolbar__desc meditation-toolbar__desc--light">{{selectedDurationLabel}}</text>
+      </view>
+    </button>
+  </view>
+
+  <view wx:if="{{showDurationSheet}}" class="duration-sheet__mask" bindtap="closeDurationSheet"></view>
+  <view wx:if="{{showDurationSheet}}" class="duration-sheet">
+    <text class="duration-sheet__title">设置冥想时长</text>
+    <view class="duration-sheet__options">
+      <button
+        wx:for="{{durationOptions}}"
+        wx:key="value"
+        class="duration-sheet__option {{selectedDurationMinutes === item.value ? 'duration-sheet__option--active' : ''}}"
+        bindtap="selectDuration"
+        data-value="{{item.value}}"
+      >
+        {{item.label}}
+      </button>
+    </view>
+
+    <view class="duration-sheet__custom">
+      <input
+        class="duration-sheet__input"
+        type="number"
+        placeholder="自定义分钟数"
+        value="{{customDurationInput}}"
+        bindinput="onCustomDurationInput"
+      />
+      <button class="duration-sheet__confirm" bindtap="confirmCustomDuration">确定</button>
+    </view>
+  </view>
+</view>
+
+<view wx:elif="{{isAiChat}}" class="chat-page">
+  <image class="chat-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="chat-page__shade"></view>
+
+  <view class="chat-page__content">
+    <view class="chat-page__header">
+      <image class="chat-page__avatar" src="/assets/ai-assistant-avatar.svg" mode="aspectFill"></image>
+      <text class="chat-page__eyebrow">{{themeText}}</text>
+      <text class="chat-page__title">{{featureTitle}}</text>
+      <text class="chat-page__subtitle">{{featureSubtitle}}</text>
+      <view class="chat-page__voice-chip">{{voiceProfileLabel}}</view>
+    </view>
+
+    <scroll-view class="chat-thread" scroll-y="{{true}}" scroll-into-view="{{chatScrollIntoView}}">
+      <view wx:for="{{chatMessages}}" wx:key="id" id="chat-{{item.id}}" class="chat-message chat-message--{{item.role}}">
+        <view
+          class="chat-message__bubble chat-message__bubble--{{item.role}}"
+          bindlongpress="onMessageLongPress"
+          data-message-id="{{item.id}}"
+          data-message-kind="{{item.kind || 'text'}}"
+        >
+          <text class="chat-message__text">{{item.text}}</text>
+
+          <view wx:if="{{item.kind === 'voice'}}" class="chat-voice-card chat-voice-card--{{item.role}}">
+            <view class="chat-voice-card__top">
+              <view class="chat-voice-card__icon"></view>
+              <text class="chat-voice-card__duration">{{item.durationSeconds || item.voiceDurationSeconds || 1}}秒语音</text>
+            </view>
+            <text wx:if="{{item.statusText}}" class="chat-voice-card__status">{{item.statusText}}</text>
+
+            <button
+              class="chat-voice-card__button"
+              bindtap="toggleMessageVoicePlayback"
+              data-message-id="{{item.id}}"
+              data-duration-seconds="{{item.voiceDurationSeconds || item.durationSeconds || 1}}"
+            >
+              {{playingMessageId === item.id ? '停止播放' : '播放语音'}}
+            </button>
+
+            <view wx:if="{{playingMessageId === item.id}}" class="chat-message__progress">
+              <view class="chat-message__progress-track">
+                <view class="chat-message__progress-fill" style="width: {{playbackProgress}}%;"></view>
+              </view>
+              <text class="chat-message__progress-text">{{playbackCurrentSeconds}} / {{item.voiceDurationSeconds || item.durationSeconds || 1}} 秒</text>
+            </view>
+          </view>
+
+          <view wx:elif="{{item.role === 'ai'}}" class="chat-ai-card">
+            <button
+              class="chat-ai-card__voice-btn"
+              bindtap="toggleMessageVoicePlayback"
+              data-message-id="{{item.id}}"
+              data-duration-seconds="{{item.voiceDurationSeconds || 6}}"
+            >
+              {{playingMessageId === item.id ? '停止播放' : '播放语音'}}
+            </button>
+
+            <view wx:if="{{playingMessageId === item.id}}" class="chat-message__progress">
+              <view class="chat-message__progress-track">
+                <view class="chat-message__progress-fill" style="width: {{playbackProgress}}%;"></view>
+              </view>
+              <text class="chat-message__progress-text">{{playbackCurrentSeconds}} / {{item.voiceDurationSeconds || 6}} 秒</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="chat-inputbar">
+    <input
+      class="chat-inputbar__input"
+      type="text"
+      placeholder="输入想和 AI 助手聊的话题"
+      value="{{textInputValue}}"
+      bindinput="onChatTextInput"
+      bindconfirm="submitTextMessage"
+      confirm-type="send"
+      placeholder-class="chat-inputbar__placeholder"
+    />
+    <button class="chat-inputbar__send" bindtap="submitTextMessage">发送</button>
+    <button
+      class="chat-mic-button"
+      bindtap="onMicTap"
+      bindtouchstart="onMicTouchStart"
+      bindlongpress="onMicLongPress"
+      bindtouchmove="onMicTouchMove"
+      bindtouchend="onMicTouchEnd"
+      bindtouchcancel="onMicTouchEnd"
+    >
+      <view class="chat-mic-button__icon"></view>
+    </button>
+  </view>
+
+  <view wx:if="{{showRecordModal}}" class="record-mask" bindtap="closeRecordModal"></view>
+  <view wx:if="{{showRecordModal}}" class="record-panel">
+    <text class="record-panel__title">{{isRecording ? '录音中' : '准备录音'}}</text>
+    <text class="record-panel__hint {{isRecordCancelled ? 'record-panel__hint--danger' : ''}}">{{recordHint}}</text>
+
+    <view class="record-wave">
+      <view
+        wx:for="{{waveHeights}}"
+        wx:key="index"
+        class="record-wave__bar {{isRecordCancelled ? 'record-wave__bar--danger' : ''}}"
+        style="height: {{item}}rpx;"
+      ></view>
+    </view>
+
+    <text class="record-panel__subtext">上滑取消录制，松开手指自动发送</text>
+  </view>
+
+  <view wx:if="{{showMessageMenu}}" class="message-menu__mask" bindtap="closeMessageMenu"></view>
+  <view wx:if="{{showMessageMenu}}" class="message-menu">
+    <button
+      wx:if="{{selectedMessageKind !== 'voice'}}"
+      class="message-menu__button"
+      bindtap="copySelectedMessage"
+    >
+      复制文字信息
+    </button>
+    <button class="message-menu__button message-menu__button--danger" bindtap="deleteSelectedMessage">
+      删除聊天
+    </button>
+    <button class="message-menu__button message-menu__button--ghost" bindtap="closeMessageMenu">
+      取消
+    </button>
+  </view>
+</view>
+
+<view wx:elif="{{isCommunity}}" class="community-page">
+  <image class="community-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="community-page__shade"></view>
+
+  <view class="community-page__content">
+    <view class="community-page__header">
+      <view>
+        <text class="community-page__eyebrow">{{themeText}}</text>
+        <text class="community-page__title">{{featureTitle}}</text>
+      </view>
+      <button class="community-page__publish" bindtap="openCommunityPublish">+</button>
+    </view>
+
+    <scroll-view
+      class="community-feed"
+      scroll-y="{{true}}"
+      enhanced="{{true}}"
+      refresher-enabled="{{true}}"
+      refresher-triggered="{{communityRefreshing}}"
+      bindrefresherrefresh="onCommunityRefresh"
+      bindscrolltolower="onCommunityScrollToLower"
+      lower-threshold="120"
+    >
+      <view wx:for="{{communityVisiblePosts}}" wx:key="id" class="community-card" bindtap="openCommunityDetail" data-post-id="{{item.id}}">
+        <image class="community-card__cover" src="{{item.coverImage}}" mode="aspectFill"></image>
+        <view class="community-card__shade"></view>
+        <view class="community-card__body">
+          <view class="community-card__topline">
+            <text class="community-card__author">{{item.author}}</text>
+            <text wx:if="{{item.auditStatus === 'pending'}}" class="community-card__status">审核中</text>
+          </view>
+          <text class="community-card__title">{{item.title}}</text>
+          <text class="community-card__content">{{item.content}}</text>
+          <view class="community-card__meta">
+            <text>{{item.likeCount}} 点赞</text>
+            <text>{{item.commentCount}} 评论</text>
+            <text>{{item.createdAt}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{communityRefreshing}}" class="community-feed__tip">刷新中...</view>
+      <view wx:if="{{communityLoadingMore}}" class="community-feed__tip">加载更多中...</view>
+      <view wx:if="{{communityLoadMessage && !communityLoadingMore && !communityRefreshing}}" class="community-feed__tip">{{communityLoadMessage}}</view>
+    </scroll-view>
+  </view>
+</view>
+
+<view wx:else class="feature-page">
+  <image class="feature-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="feature-page__shade"></view>
+  <view class="feature-page__content">
+    <text class="feature-page__eyebrow">{{themeText}}</text>
+    <text class="feature-page__title">{{featureTitle}}</text>
+    <text class="feature-page__subtitle">{{featureSubtitle}}</text>
+
+    <view class="feature-page__panel">
+      <view class="feature-page__row"></view>
+      <view class="feature-page__row feature-page__row--small"></view>
+      <view class="feature-page__row feature-page__row--small"></view>
+    </view>
+
+    <view class="feature-page__button" bindtap="onPrimaryAction">{{featureButton}}</view>
+  </view>
+</view>
