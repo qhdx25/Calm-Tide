@@ -1,0 +1,197 @@
+<navigation-bar title="{{themeTitle}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="main-page">
+  <image class="main-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="main-page__shade"></view>
+
+  <view class="feature-header">
+    <text class="feature-header__title {{featureHeaderVisible ? 'feature-header__title--visible' : ''}}">{{currentFeatureName}}</text>
+  </view>
+
+  <view
+    class="feature-track"
+    style="{{trackStyle}}"
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
+    bindtouchcancel="onTouchEnd"
+  >
+    <view class="feature-panel" wx:for="{{features}}" wx:key="id">
+      <view class="feature-panel__glass">
+        <text class="feature-panel__eyebrow">{{item.eyebrow}}</text>
+        <text class="feature-panel__title">{{item.name}}</text>
+        <text class="feature-panel__desc">{{item.desc}}</text>
+
+        <view wx:if="{{item.id === 'meditation'}}" class="feature-layout">
+          <view class="feature-card feature-card--hero">
+            <text class="feature-card__label">每日练习</text>
+            <text class="feature-card__headline">10分钟呼吸放松</text>
+            <view class="breath-ring">
+              <view class="breath-ring__inner"></view>
+            </view>
+            <view class="feature-chip-row">
+              <view class="feature-chip">平静</view>
+              <view class="feature-chip">专注</view>
+              <view class="feature-chip">睡眠</view>
+            </view>
+          </view>
+
+          <view class="feature-row">
+            <view class="feature-card feature-card--half">
+              <text class="feature-card__label">今日计划</text>
+              <text class="feature-card__metric">3次练习</text>
+              <text class="feature-card__meta">晨间 / 午后 / 夜晚</text>
+            </view>
+            <view class="feature-card feature-card--half">
+              <text class="feature-card__label">当前状态</text>
+              <text class="feature-card__metric">72%</text>
+              <text class="feature-card__meta">轻微紧绷</text>
+            </view>
+          </view>
+
+          <view class="feature-action" bindtap="openFeature" data-feature-id="{{item.id}}">进入冥想详情</view>
+        </view>
+
+        <view wx:elif="{{item.id === 'ai-chat'}}" class="feature-layout">
+          <view class="feature-card feature-card--hero">
+            <text class="feature-card__label">AI陪伴</text>
+            <text class="feature-card__headline">今天有什么让你感到沉重？</text>
+            <view class="chat-bubble chat-bubble--assistant">你可以只说一句话开始，我会陪你慢慢整理感受。</view>
+            <view class="chat-bubble chat-bubble--user">我从早上开始就有点喘不过气。</view>
+          </view>
+
+          <view class="feature-row">
+            <view class="feature-card feature-card--half">
+              <text class="feature-card__label">快捷提问</text>
+              <text class="feature-card__meta">帮我快速冷静下来</text>
+            </view>
+            <view class="feature-card feature-card--half">
+              <text class="feature-card__label">对话模式</text>
+              <text class="feature-card__meta">温和引导</text>
+            </view>
+          </view>
+
+          <view class="feature-action" bindtap="openFeature" data-feature-id="{{item.id}}">进入AI聊天</view>
+        </view>
+
+        <view wx:else class="feature-layout">
+          <view class="feature-card feature-card--hero">
+            <text class="feature-card__label">温暖社区</text>
+            <text class="feature-card__headline">大家正在分享自己的小小治愈时刻</text>
+            <view class="community-post">
+              <view class="community-post__avatar"></view>
+              <view class="community-post__body">
+                <text class="community-post__name">Luna</text>
+                <text class="community-post__text">刚做完10分钟呼吸练习，终于慢下来了。</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="feature-row">
+            <view class="feature-card feature-card--half">
+              <text class="feature-card__label">热门话题</text>
+              <text class="feature-card__meta">夜晚安静仪式</text>
+            </view>
+            <view class="feature-card feature-card--half">
+              <text class="feature-card__label">活跃圈子</text>
+              <text class="feature-card__meta">今日128人在线</text>
+            </view>
+          </view>
+
+          <view class="feature-action" bindtap="openFeature" data-feature-id="{{item.id}}">进入社区</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="feature-pagination">
+    <view
+      wx:for="{{features}}"
+      wx:key="id"
+      class="feature-pagination__dot {{currentFeatureIndex === index ? 'feature-pagination__dot--active' : ''}}"
+    ></view>
+  </view>
+
+  <view wx:if="{{currentFeatureIndex === 0}}" class="meditation-floating">
+    <view class="meditation-floating__status">
+      <text class="meditation-floating__time">{{remainingTimeText}}</text>
+      <text class="meditation-floating__meta">{{selectedDurationLabel}} · {{isPlaying ? '播放中' : '已暂停'}}</text>
+    </view>
+
+    <button class="meditation-floating__music" bindtap="openMusicSelect">
+      <view class="meditation-floating__music-orb"></view>
+      <view class="meditation-floating__label-group">
+        <text class="meditation-floating__title meditation-floating__title--light">音乐选择</text>
+        <text class="meditation-floating__desc meditation-floating__desc--light">{{selectedTrackName}}</text>
+      </view>
+    </button>
+
+    <view class="meditation-floating__toolbar">
+      <button class="meditation-floating__button meditation-floating__button--primary" bindtap="toggleMeditationPlayback">
+        <view class="meditation-floating__icon-wrap">
+          <view wx:if="{{isPlaying}}" class="meditation-floating__icon meditation-floating__icon--pause">
+            <view class="meditation-floating__pause-bar"></view>
+            <view class="meditation-floating__pause-bar"></view>
+          </view>
+          <view wx:else class="meditation-floating__icon meditation-floating__icon--play"></view>
+        </view>
+        <view class="meditation-floating__label-group">
+          <text class="meditation-floating__title">{{isPlaying ? '暂停播放' : '继续播放'}}</text>
+          <text class="meditation-floating__desc">{{isPlaying ? '白噪音与计时同步进行' : '恢复白噪音与倒计时'}}</text>
+        </view>
+      </button>
+
+      <button class="meditation-floating__button meditation-floating__button--secondary" bindtap="openDurationSheet">
+        <view class="meditation-floating__icon-wrap meditation-floating__icon-wrap--secondary">
+          <view class="meditation-floating__icon meditation-floating__icon--clock">
+            <view class="meditation-floating__clock-hand meditation-floating__clock-hand--hour"></view>
+            <view class="meditation-floating__clock-hand meditation-floating__clock-hand--minute"></view>
+          </view>
+        </view>
+        <view class="meditation-floating__label-group">
+          <text class="meditation-floating__title meditation-floating__title--light">冥想时长</text>
+          <text class="meditation-floating__desc meditation-floating__desc--light">{{selectedDurationLabel}}</text>
+        </view>
+      </button>
+    </view>
+  </view>
+
+  <view wx:if="{{showDurationSheet}}" class="duration-sheet__mask" bindtap="closeDurationSheet"></view>
+  <view wx:if="{{showDurationSheet}}" class="duration-sheet">
+    <text class="duration-sheet__title">设置冥想时长</text>
+    <view class="duration-sheet__options">
+      <button
+        wx:for="{{durationOptions}}"
+        wx:key="value"
+        class="duration-sheet__option {{selectedDurationMinutes === item.value ? 'duration-sheet__option--active' : ''}}"
+        bindtap="selectDuration"
+        data-value="{{item.value}}"
+      >
+        {{item.label}}
+      </button>
+    </view>
+
+    <view class="duration-sheet__custom">
+      <input
+        class="duration-sheet__input"
+        type="number"
+        placeholder="自定义分钟数"
+        value="{{customDurationInput}}"
+        bindinput="onCustomDurationInput"
+      />
+      <button class="duration-sheet__confirm" bindtap="confirmCustomDuration">确定</button>
+    </view>
+  </view>
+  <view class="bottom-nav">
+    <view
+      wx:for="{{bottomTabs}}"
+      wx:key="id"
+      class="bottom-nav__item {{activeBottomTab === item.id ? 'bottom-nav__item--active' : ''}}"
+      bindtap="onBottomTabTap"
+      data-tab-id="{{item.id}}"
+    >
+      <view class="bottom-nav__icon bottom-nav__icon--{{item.id}}"></view>
+      <text class="bottom-nav__label">{{item.label}}</text>
+    </view>
+  </view>
+</view>

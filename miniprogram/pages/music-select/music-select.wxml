@@ -1,0 +1,37 @@
+<navigation-bar title="{{title}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="music-select-page">
+  <image class="music-select-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="music-select-page__shade"></view>
+
+  <view class="music-select-page__content">
+    <text class="music-select-page__eyebrow">{{themeText}}</text>
+    <text class="music-select-page__title">选择冥想音乐</text>
+    <text class="music-select-page__subtitle">挑一张声音卡片，给这次练习换一种氛围。</text>
+
+    <view class="music-select-list">
+      <view
+        wx:for="{{tracks}}"
+        wx:key="id"
+        class="music-select-card music-select-card--{{item.accent}} {{selectedTrackId === item.id ? 'music-select-card--active' : ''}}"
+        bindtap="selectTrack"
+        data-track-id="{{item.id}}"
+      >
+        <view class="music-select-card__cover">
+          <view class="music-select-card__note"></view>
+          <view class="music-select-card__wave music-select-card__wave--1"></view>
+          <view class="music-select-card__wave music-select-card__wave--2"></view>
+        </view>
+        <view class="music-select-card__body">
+          <view class="music-select-card__topline">
+            <text class="music-select-card__mood">{{item.mood}}</text>
+            <text class="music-select-card__duration">{{item.duration}}</text>
+          </view>
+          <text class="music-select-card__name">{{item.name}}</text>
+          <text class="music-select-card__subtitle">{{item.subtitle}}</text>
+        </view>
+        <view class="music-select-card__check">{{selectedTrackId === item.id ? '已选' : '选择'}}</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,26 @@
+# Dependencies and build output
+node_modules/
+dist/
+build/
+
+# Local tooling and downloaded archives
+tools/
+ffmpeg-*/
+*.zip
+*.7z
+*.tar
+*.tar.xz
+
+# Root-level working media copies; app assets live under miniprogram/assets/
+/*.mp3
+/*.mp4
+/*.wav
+/*.m4a
+
+# Local generated helper files
+update_density_docx.py
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,58 @@
+<navigation-bar title="{{title}}" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="community-detail-page">
+  <image class="community-detail-page__background" src="{{themeBackground}}" mode="aspectFill"></image>
+  <view class="community-detail-page__shade"></view>
+
+  <view wx:if="{{post}}" class="community-detail-page__content">
+    <view class="community-detail-card">
+      <text class="community-detail-card__eyebrow">{{themeText}}</text>
+      <text class="community-detail-card__title">{{post.title}}</text>
+      <text class="community-detail-card__meta">{{post.author}} · {{post.createdAt}}</text>
+
+      <view wx:if="{{post.auditStatus === 'pending'}}" class="community-detail-card__status">审核中</view>
+
+      <image class="community-detail-card__hero" src="{{post.coverImage}}" mode="aspectFill"></image>
+      <text class="community-detail-card__text">{{post.content}}</text>
+
+      <view wx:if="{{post.images.length > 1}}" class="community-detail-gallery">
+        <image wx:for="{{post.images}}" wx:key="*this" class="community-detail-gallery__image" src="{{item}}" mode="aspectFill"></image>
+      </view>
+
+      <view class="community-detail-actions">
+        <button class="community-detail-actions__button {{post.liked ? 'community-detail-actions__button--liked' : ''}}" bindtap="toggleLike">
+          点赞 {{post.likeCount}}
+        </button>
+        <button class="community-detail-actions__button" bindtap="openCommentInput">
+          评论 {{post.commentCount}}
+        </button>
+      </view>
+    </view>
+
+    <view class="community-comments">
+      <text class="community-comments__title">评论区</text>
+      <view wx:for="{{post.comments}}" wx:key="id" class="community-comments__item">
+        <view class="community-comments__topline">
+          <text class="community-comments__author">{{item.author}}</text>
+          <text class="community-comments__time">{{item.createdAt}}</text>
+        </view>
+        <text class="community-comments__content">{{item.content}}</text>
+        <text wx:if="{{item.status === 'pending'}}" class="community-comments__status">审核中</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showCommentInput}}" class="community-comment-mask" bindtap="closeCommentInput"></view>
+  <view wx:if="{{showCommentInput}}" class="community-comment-box">
+    <input
+      class="community-comment-box__input"
+      type="text"
+      placeholder="输入评论内容"
+      value="{{commentInputValue}}"
+      bindinput="onCommentInput"
+      confirm-type="send"
+      bindconfirm="submitComment"
+    />
+    <button class="community-comment-box__send" bindtap="submitComment">发送</button>
+  </view>
+</view>

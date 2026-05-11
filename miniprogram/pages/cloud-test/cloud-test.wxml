@@ -1,0 +1,35 @@
+<navigation-bar title="云资源测试" back="{{true}}" color="white" background="transparent"></navigation-bar>
+
+<view class="cloud-test">
+  <view class="cloud-test__panel">
+    <text class="cloud-test__title">云端图片读取测试</text>
+    <text class="cloud-test__desc">先把 cloud:// 文件 ID 转成临时 URL，再交给 image 显示。</text>
+
+    <button class="cloud-test__button" bindtap="testCloudImage">重新测试图片</button>
+
+    <view class="cloud-test__status cloud-test__status--{{statusType}}">
+      <text>{{statusText}}</text>
+    </view>
+
+    <view class="cloud-test__preview">
+      <image
+        wx:if="{{tempImageUrl}}"
+        class="cloud-test__image"
+        src="{{tempImageUrl}}"
+        mode="aspectFit"
+        bindload="onImageLoad"
+        binderror="onImageError"
+      ></image>
+      <text wx:else class="cloud-test__empty">还没有拿到临时图片地址</text>
+    </view>
+
+    <view class="cloud-test__info">
+      <text class="cloud-test__label">cloud 文件 ID</text>
+      <text class="cloud-test__value">{{cloudFileId}}</text>
+      <text class="cloud-test__label">临时 URL</text>
+      <text class="cloud-test__value">{{tempImageUrl || '暂无'}}</text>
+      <text class="cloud-test__label">返回详情</text>
+      <text class="cloud-test__value">{{debugText}}</text>
+    </view>
+  </view>
+</view>

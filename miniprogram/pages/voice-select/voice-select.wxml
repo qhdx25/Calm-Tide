@@ -1,0 +1,49 @@
+<navigation-bar title="语音选择" back="{{true}}" color="white" background="transparent"></navigation-bar>
+<view class="voice-page">
+  <view class="voice-page__shade"></view>
+
+  <view class="voice-page__content">
+    <view class="voice-page__header">
+      <text class="voice-page__eyebrow">{{themeTitle}}主题</text>
+      <text class="voice-page__title">选择语音风格</text>
+      <text class="voice-page__desc">先完成语音维度选择，再进入主界面。</text>
+    </view>
+
+    <view class="voice-section">
+      <text class="voice-section__title">性别</text>
+      <view class="voice-options">
+        <view
+          wx:for="{{genderOptions}}"
+          wx:key="id"
+          class="voice-option {{gender === item.id ? 'voice-option--active' : ''}}"
+          bindtap="onSelectGender"
+          data-value="{{item.id}}"
+        >
+          {{item.label}}
+        </view>
+      </view>
+    </view>
+
+    <view class="voice-section">
+      <text class="voice-section__title">年龄</text>
+      <view class="voice-options">
+        <view
+          wx:for="{{ageOptions}}"
+          wx:key="id"
+          class="voice-option {{age === item.id ? 'voice-option--active' : ''}}"
+          bindtap="onSelectAge"
+          data-value="{{item.id}}"
+        >
+          {{item.label}}
+        </view>
+      </view>
+    </view>
+
+    <view
+      class="voice-confirm {{gender && age ? 'voice-confirm--enabled' : 'voice-confirm--disabled'}}"
+      bindtap="onConfirm"
+    >
+      确认
+    </view>
+  </view>
+</view>

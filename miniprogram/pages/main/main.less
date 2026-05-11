@@ -1,0 +1,854 @@
+page {
+  height: 100vh;
+}
+
+.main-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.main-page__background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.main-page__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(6, 10, 14, 0.12) 0%, rgba(6, 10, 14, 0.32) 100%);
+}
+
+.feature-header {
+  position: absolute;
+  top: 138rpx;
+  left: 0;
+  width: 100%;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.feature-header__title {
+  padding: 12rpx 24rpx;
+  border-radius: 999rpx;
+  font-size: 24rpx;
+  letter-spacing: 4rpx;
+  color: rgba(255, 255, 255, 0);
+  background: rgba(12, 18, 20, 0.18);
+  border: 2rpx solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transform: translateY(12rpx);
+  transition: opacity 220ms ease, transform 220ms ease, color 220ms ease;
+}
+
+.feature-header__title--visible {
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-track {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  width: 300%;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+.feature-panel {
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 220rpx 36rpx 420rpx;
+  display: flex;
+  align-items: flex-end;
+}
+
+.feature-panel__glass {
+  width: 100%;
+  padding: 34rpx;
+  border-radius: 34rpx;
+  background: rgba(11, 17, 18, 0.16);
+  border: 2rpx solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24rpx 70rpx rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(18rpx);
+}
+
+.feature-panel__eyebrow {
+  display: block;
+  margin-bottom: 14rpx;
+  font-size: 20rpx;
+  letter-spacing: 5rpx;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.feature-panel__title {
+  display: block;
+  margin-bottom: 12rpx;
+  font-size: 68rpx;
+  line-height: 1.12;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.feature-panel__desc {
+  display: block;
+  width: 560rpx;
+  margin-bottom: 28rpx;
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.feature-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.feature-row {
+  display: flex;
+  gap: 18rpx;
+}
+
+.feature-card {
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.14);
+  border: 2rpx solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
+}
+
+.feature-card--hero {
+  min-height: 236rpx;
+  padding: 26rpx;
+}
+
+.feature-card--half {
+  flex: 1;
+  min-height: 148rpx;
+  padding: 24rpx;
+}
+
+.feature-card__label {
+  display: block;
+  margin-bottom: 10rpx;
+  font-size: 18rpx;
+  letter-spacing: 3rpx;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.feature-card__headline {
+  display: block;
+  width: 460rpx;
+  margin-bottom: 20rpx;
+  font-size: 38rpx;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.feature-card__metric {
+  display: block;
+  margin-bottom: 8rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.feature-card__meta {
+  display: block;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.feature-chip-row {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.feature-chip {
+  padding: 10rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.feature-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  border-radius: 24rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f3028;
+  background: rgba(255, 248, 231, 0.92);
+  box-shadow: 0 16rpx 36rpx rgba(0, 0, 0, 0.12);
+}
+
+.breath-ring {
+  position: relative;
+  width: 116rpx;
+  height: 116rpx;
+  margin-bottom: 20rpx;
+  border-radius: 999rpx;
+  border: 6rpx solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 0 0 12rpx rgba(255, 255, 255, 0.08);
+}
+
+.breath-ring__inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: 999rpx;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.meditation-inline-status {
+  padding: 22rpx 24rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2rpx solid rgba(255, 255, 255, 0.1);
+}
+
+.meditation-inline-status__time {
+  display: block;
+  margin-bottom: 8rpx;
+  font-size: 46rpx;
+  line-height: 1;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.meditation-inline-status__meta {
+  display: block;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.meditation-inline-toolbar {
+  display: flex;
+  gap: 18rpx;
+}
+
+.meditation-inline-toolbar__button {
+  flex: 1;
+  min-height: 112rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  box-shadow: 0 16rpx 36rpx rgba(0, 0, 0, 0.12);
+  border: 0;
+  line-height: normal;
+}
+
+.meditation-inline-toolbar__button::after,
+.duration-sheet__option::after,
+.duration-sheet__confirm::after {
+  border: 0;
+}
+
+.meditation-inline-toolbar__button--primary {
+  background: rgba(255, 247, 232, 0.94);
+}
+
+.meditation-inline-toolbar__button--secondary {
+  background: rgba(11, 17, 18, 0.28);
+  border: 2rpx solid rgba(255, 255, 255, 0.14);
+}
+
+.meditation-inline-toolbar__icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 24rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(27, 43, 36, 0.1);
+}
+
+.meditation-inline-toolbar__icon-wrap--secondary {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.meditation-inline-toolbar__label-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.meditation-inline-toolbar__title {
+  font-size: 28rpx;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #1d2b24;
+}
+
+.meditation-inline-toolbar__title--light {
+  color: #ffffff;
+}
+
+.meditation-inline-toolbar__desc {
+  margin-top: 6rpx;
+  font-size: 20rpx;
+  line-height: 1.35;
+  color: rgba(29, 43, 36, 0.62);
+}
+
+.meditation-inline-toolbar__desc--light {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.meditation-inline-toolbar__icon {
+  position: relative;
+}
+
+.meditation-inline-toolbar__icon--play {
+  width: 0;
+  height: 0;
+  margin-left: 8rpx;
+  border-top: 16rpx solid transparent;
+  border-bottom: 16rpx solid transparent;
+  border-left: 26rpx solid #1d2b24;
+}
+
+.meditation-inline-toolbar__icon--pause {
+  width: 26rpx;
+  height: 28rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.meditation-inline-toolbar__pause-bar {
+  width: 8rpx;
+  height: 28rpx;
+  border-radius: 999rpx;
+  background: #1d2b24;
+}
+
+.meditation-inline-toolbar__icon--clock {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 4rpx solid #ffffff;
+  box-sizing: border-box;
+}
+
+.meditation-inline-toolbar__clock-hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 4rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  transform-origin: center bottom;
+}
+
+.meditation-inline-toolbar__clock-hand--hour {
+  height: 10rpx;
+  margin-left: -2rpx;
+  transform: rotate(25deg);
+}
+
+.meditation-inline-toolbar__clock-hand--minute {
+  height: 13rpx;
+  margin-left: -2rpx;
+  transform: rotate(-55deg);
+}
+
+.meditation-floating {
+  position: absolute;
+  left: 36rpx;
+  right: 36rpx;
+  bottom: 150rpx;
+  z-index: 6;
+}
+
+.meditation-floating__status {
+  margin-bottom: 18rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 24rpx;
+  background: rgba(11, 17, 18, 0.26);
+  border: 2rpx solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18rpx);
+}
+
+.meditation-floating__time {
+  display: block;
+  margin-bottom: 8rpx;
+  font-size: 46rpx;
+  line-height: 1;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.meditation-floating__meta {
+  display: block;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.meditation-floating__music {
+  width: 100%;
+  min-height: 96rpx;
+  margin-bottom: 18rpx;
+  padding: 18rpx 24rpx;
+  box-sizing: border-box;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  text-align: left;
+  background: rgba(11, 17, 18, 0.34);
+  border: 2rpx solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18rpx);
+  box-shadow: 0 16rpx 36rpx rgba(0, 0, 0, 0.12);
+  line-height: normal;
+}
+
+.meditation-floating__music::after {
+  border: 0;
+}
+
+.meditation-floating__music-orb {
+  position: relative;
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 999rpx;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #fff7e8 0%, #ffd587 100%);
+  box-shadow: 0 0 22rpx rgba(255, 213, 135, 0.46);
+}
+
+.meditation-floating__music-orb::before,
+.meditation-floating__music-orb::after {
+  content: '';
+  position: absolute;
+  background: #1d2b24;
+}
+
+.meditation-floating__music-orb::before {
+  left: 22rpx;
+  top: 13rpx;
+  width: 7rpx;
+  height: 28rpx;
+  border-radius: 999rpx;
+}
+
+.meditation-floating__music-orb::after {
+  left: 27rpx;
+  top: 11rpx;
+  width: 17rpx;
+  height: 7rpx;
+  border-radius: 999rpx;
+  transform: rotate(14deg);
+}
+
+.meditation-floating__toolbar {
+  display: flex;
+  gap: 18rpx;
+}
+
+.meditation-floating__button {
+  flex: 1;
+  min-height: 112rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  box-shadow: 0 16rpx 36rpx rgba(0, 0, 0, 0.12);
+  border: 0;
+  line-height: normal;
+}
+
+.meditation-floating__button::after {
+  border: 0;
+}
+
+.meditation-floating__button--primary {
+  background: rgba(255, 247, 232, 0.94);
+}
+
+.meditation-floating__button--secondary {
+  background: rgba(11, 17, 18, 0.32);
+  border: 2rpx solid rgba(255, 255, 255, 0.14);
+}
+
+.meditation-floating__icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 24rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(27, 43, 36, 0.1);
+}
+
+.meditation-floating__icon-wrap--secondary {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.meditation-floating__label-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.meditation-floating__title {
+  font-size: 28rpx;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #1d2b24;
+}
+
+.meditation-floating__title--light {
+  color: #ffffff;
+}
+
+.meditation-floating__desc {
+  margin-top: 6rpx;
+  font-size: 20rpx;
+  line-height: 1.35;
+  color: rgba(29, 43, 36, 0.62);
+}
+
+.meditation-floating__desc--light {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.meditation-floating__icon {
+  position: relative;
+}
+
+.meditation-floating__icon--play {
+  width: 0;
+  height: 0;
+  margin-left: 8rpx;
+  border-top: 16rpx solid transparent;
+  border-bottom: 16rpx solid transparent;
+  border-left: 26rpx solid #1d2b24;
+}
+
+.meditation-floating__icon--pause {
+  width: 26rpx;
+  height: 28rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.meditation-floating__pause-bar {
+  width: 8rpx;
+  height: 28rpx;
+  border-radius: 999rpx;
+  background: #1d2b24;
+}
+
+.meditation-floating__icon--clock {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 4rpx solid #ffffff;
+  box-sizing: border-box;
+}
+
+.meditation-floating__clock-hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: 4rpx;
+  border-radius: 999rpx;
+  background: #ffffff;
+  transform-origin: center bottom;
+}
+
+.meditation-floating__clock-hand--hour {
+  height: 10rpx;
+  margin-left: -2rpx;
+  transform: rotate(25deg);
+}
+
+.meditation-floating__clock-hand--minute {
+  height: 13rpx;
+  margin-left: -2rpx;
+  transform: rotate(-55deg);
+}
+
+.chat-bubble {
+  max-width: 500rpx;
+  padding: 16rpx 18rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  line-height: 1.7;
+}
+
+.chat-bubble--assistant {
+  margin-bottom: 14rpx;
+  color: #16332e;
+  background: rgba(229, 255, 245, 0.86);
+}
+
+.chat-bubble--user {
+  margin-left: auto;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.community-post {
+  display: flex;
+  gap: 16rpx;
+  align-items: flex-start;
+}
+
+.community-post__avatar {
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #ffd6b4 0%, #ff9cb3 100%);
+}
+
+.community-post__body {
+  flex: 1;
+}
+
+.community-post__name {
+  display: block;
+  margin-bottom: 6rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.community-post__text {
+  display: block;
+  font-size: 22rpx;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.feature-pagination {
+  position: absolute;
+  left: 0;
+  bottom: 112rpx;
+  width: 100%;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  gap: 16rpx;
+}
+
+.feature-pagination__dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.34);
+  transition: all 220ms ease;
+}
+
+.feature-pagination__dot--active {
+  width: 40rpx;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.bottom-nav {
+  position: absolute;
+  left: 24rpx;
+  right: 24rpx;
+  bottom: 24rpx;
+  z-index: 7;
+  height: 88rpx;
+  padding: 10rpx;
+  box-sizing: border-box;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(11, 17, 18, 0.78);
+  border: 2rpx solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18rpx);
+}
+
+.bottom-nav__item {
+  flex: 1;
+  height: 100%;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.bottom-nav__item--active {
+  background: rgba(255, 247, 232, 0.94);
+  color: #173129;
+}
+
+.bottom-nav__icon {
+  position: relative;
+  width: 24rpx;
+  height: 24rpx;
+  flex-shrink: 0;
+}
+
+.bottom-nav__icon--home {
+  border: 4rpx solid currentColor;
+  border-bottom-width: 6rpx;
+  border-radius: 8rpx;
+}
+
+.bottom-nav__icon--home::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -10rpx;
+  width: 18rpx;
+  height: 18rpx;
+  border-left: 4rpx solid currentColor;
+  border-top: 4rpx solid currentColor;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.bottom-nav__icon--community {
+  border-radius: 999rpx;
+  border: 4rpx solid currentColor;
+}
+
+.bottom-nav__icon--community::before,
+.bottom-nav__icon--community::after {
+  content: '';
+  position: absolute;
+  bottom: -8rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-bottom: 4rpx solid currentColor;
+  border-radius: 0 0 8rpx 8rpx;
+}
+
+.bottom-nav__icon--community::before {
+  left: 1rpx;
+}
+
+.bottom-nav__icon--community::after {
+  right: 1rpx;
+}
+
+.bottom-nav__icon--profile {
+  border-radius: 50%;
+  border: 4rpx solid currentColor;
+}
+
+.bottom-nav__icon--profile::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10rpx;
+  width: 24rpx;
+  height: 12rpx;
+  border: 4rpx solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 14rpx 14rpx;
+  transform: translateX(-50%);
+}
+
+.bottom-nav__label {
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.duration-sheet__mask {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.duration-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding: 30rpx 30rpx calc(30rpx + env(safe-area-inset-bottom));
+  border-radius: 32rpx 32rpx 0 0;
+  background: rgba(18, 18, 18, 0.96);
+}
+
+.duration-sheet__title {
+  display: block;
+  margin-bottom: 22rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.duration-sheet__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 22rpx;
+}
+
+.duration-sheet__option {
+  min-width: 140rpx;
+  padding: 18rpx 20rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.08);
+  border: 2rpx solid transparent;
+  line-height: 1.2;
+}
+
+.duration-sheet__option--active {
+  color: #1b2b24;
+  background: rgba(255, 247, 232, 0.94);
+}
+
+.duration-sheet__custom {
+  display: flex;
+  gap: 16rpx;
+}
+
+.duration-sheet__input {
+  flex: 1;
+  height: 86rpx;
+  padding: 0 24rpx;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.duration-sheet__confirm {
+  width: 148rpx;
+  height: 86rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1b2b24;
+  background: rgba(255, 247, 232, 0.94);
+  border: 0;
+  line-height: normal;
+}
